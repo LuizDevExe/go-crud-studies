@@ -32,7 +32,14 @@ func NewBadRequestError(message string, causes []string) *RestErr {
 		Message: message,
 		Err:     "bad_request",
 		Code:    http.StatusBadRequest,
-		Causes:  causes,
+	}
+}
+
+func NewBadRequestValidationError(message string, causes []string) *RestErr {
+	return &RestErr{
+		Message: message,
+		Err:     "bad_request",
+		Code:    http.StatusBadRequest,
 	}
 }
 
@@ -41,7 +48,6 @@ func NewNotFoundError(message string, causes []string) *RestErr {
 		Message: message,
 		Err:     "not_found",
 		Code:    http.StatusNotFound,
-		Causes:  causes,
 	}
 }
 
@@ -50,16 +56,14 @@ func NewInternalServerError(message string, causes []string) *RestErr {
 		Message: message,
 		Err:     "internal_server_error",
 		Code:    http.StatusInternalServerError,
-		Causes:  causes,
 	}
-}	
+}
 
 func NewUnauthorizedError(message string, causes []string) *RestErr {
 	return &RestErr{
 		Message: message,
 		Err:     "unauthorized",
 		Code:    http.StatusUnauthorized,
-		Causes:  causes,
 	}
 }
 
@@ -68,8 +72,5 @@ func NewForbiddenError(message string, causes []string) *RestErr {
 		Message: message,
 		Err:     "forbidden",
 		Code:    http.StatusForbidden,
-		Causes:  causes,
 	}
-}	
-
-
+}
