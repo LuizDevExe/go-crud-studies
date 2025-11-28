@@ -6,7 +6,7 @@ type RestErr struct {
 	Message string   `json:"message"`
 	Err     string   `json:"error"`
 	Code    int      `json:"code"`
-	Causes  []string `json:"causes,omitempty"`
+	Causes  []Causes `json:"causes,omitempty"`
 }
 
 func (r *RestErr) Error() string {
@@ -18,7 +18,7 @@ type Causes struct {
 	Message string `json:"message"`
 }
 
-func NewRestErr(message, err string, code int, causes []string) *RestErr {
+func NewRestErr(message, err string, code int, causes []Causes) *RestErr {
 	return &RestErr{
 		Message: message,
 		Err:     err,
@@ -27,23 +27,24 @@ func NewRestErr(message, err string, code int, causes []string) *RestErr {
 	}
 }
 
-func NewBadRequestError(message string, causes []string) *RestErr {
+func NewBadRequestError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
 		Err:     "bad_request",
 		Code:    http.StatusBadRequest,
-	}
+	}	
 }
 
-func NewBadRequestValidationError(message string, causes []string) *RestErr {
+func NewBadRequestValidationError(message string, causes []Causes) *RestErr {
 	return &RestErr{
 		Message: message,
 		Err:     "bad_request",
 		Code:    http.StatusBadRequest,
+		Causes:  causes,
 	}
 }
 
-func NewNotFoundError(message string, causes []string) *RestErr {
+func NewNotFoundError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
 		Err:     "not_found",
@@ -51,7 +52,7 @@ func NewNotFoundError(message string, causes []string) *RestErr {
 	}
 }
 
-func NewInternalServerError(message string, causes []string) *RestErr {
+func NewInternalServerError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
 		Err:     "internal_server_error",
@@ -59,7 +60,7 @@ func NewInternalServerError(message string, causes []string) *RestErr {
 	}
 }
 
-func NewUnauthorizedError(message string, causes []string) *RestErr {
+func NewUnauthorizedError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
 		Err:     "unauthorized",
@@ -67,7 +68,7 @@ func NewUnauthorizedError(message string, causes []string) *RestErr {
 	}
 }
 
-func NewForbiddenError(message string, causes []string) *RestErr {
+func NewForbiddenError(message string) *RestErr {
 	return &RestErr{
 		Message: message,
 		Err:     "forbidden",
